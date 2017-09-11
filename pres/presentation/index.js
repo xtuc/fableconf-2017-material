@@ -1,7 +1,9 @@
-// Import React
 import React from 'react';
+import CodeSlide from 'spectacle-code-slide';
+import preloader from 'spectacle/lib/utils/preloader';
+import createTheme from 'spectacle/lib/themes/default';
+import Terminal from "spectacle-terminal";
 
-// Import Spectacle Core tags
 import {
   Appear,
   BlockQuote,
@@ -27,15 +29,6 @@ import {
   Text,
 } from 'spectacle';
 
-import CodeSlide from 'spectacle-code-slide';
-
-// Import image preloader util
-import preloader from 'spectacle/lib/utils/preloader';
-
-// Import theme
-import createTheme from 'spectacle/lib/themes/default';
-
-// Require CSS
 require('normalize.css');
 require('spectacle/lib/themes/default/index.css');
 
@@ -44,13 +37,19 @@ const COLOR_RED = '#DE2F34';
 
 const DEFAULT_CODESLIDE_FONTSIZE = 2.5;
 
+function line(nbr) {
+  return [nbr - 1, nbr];
+}
+
 const images = {
   todosSample: require('../assets/todos-sample.png'),
+  Sven: require('../assets/Sven.jpg'),
   fableDiagram: require('../assets/fable-diagram.png'),
   wannaContribute: require('../assets/want-contribute.png'),
   danPresetEnv: require('../assets/dan-preset-env.png'),
   kangaxCompatTable: require('../assets/kangax-compat-table.png'),
   polyfill: require('../assets/polyfill.png'),
+  Babel: require('../assets/babel.svg'),
 };
 
 preloader(images);
@@ -72,14 +71,20 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide bgColor={COLOR_RED}>
-            <Heading size={1} fit lineHeight={1} textColor="white">
-              Sven SAULEAU
-            </Heading>
+            <div style={{ float: 'left', width: '60%' }}>
+              <Image src={images.Sven.replace('/', '')} style={{ flex: 1, width: '40%', borderRadius: '50%', border: '5px solid white' }} />
+            </div>
 
-            <div style={{ textAlign: 'left', marginTop: '100px' }}>
-              <Heading size={4} lineHeight={1} textColor="white">
-                Freelance
+            <div style={{ float: 'right', width: '40%' }}>
+              <Heading size={1} fit lineHeight={1} textColor="white">
+                Sven SAULEAU
               </Heading>
+
+              <p style={{color: 'white'}}>
+                @svensauleau
+              </p>
+
+              <Image src={images.Babel.replace('/', '')} />
             </div>
           </Slide>
 
@@ -253,19 +258,33 @@ export default class Presentation extends React.Component {
             </p>
           </Slide>
 
-          <Slide transition={['slide']} notes="- webpack uses UglifyJs by def">
+          <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require('!raw!../../babili/rollup.config.js')}
+            ranges={[
+              {
+                loc: [19, 20],
+              },
+              {
+                loc: [23, 26],
+              },
+            ]}
+          />
+
+          <Slide transition={['slide']} notes="- webpack uses UglifyJs by def, with ES2015">
 
             <Heading size={6} lineHeight={1}>
               Rollup & babel-minify
             </Heading>
 
             <Heading size={6} lineHeight={1}>
-              83.8 kB → 54.3 kB
+              83.8 kB → 44 kB
             </Heading>
 
           </Slide>
 
-          <Slide transition={['slide']} notes="- online sample size, - I believe webpack overhead">
+          <Slide transition={['slide']} notes="- online sample size, - I believe webpack overhead, - to be fair, use es2015">
 
             <Heading size={6} lineHeight={1}>
               Webpack & UglifyJs
@@ -276,6 +295,87 @@ export default class Presentation extends React.Component {
             </Heading>
 
           </Slide>
+
+          <Slide transition={['slide']}>
+
+            <Terminal output={[
+              "$ wget http://fable.io/samples-browser/redux-todomvc/bundle.js",
+              "$ du -sh bundle.js",
+              "104K    bundle.js"
+              ]}
+            />
+
+          </Slide>
+
+          <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require('!raw!../../babili-with-es2015/rollup.config.js')}
+            ranges={[
+              {
+                loc: [19, 20],
+              },
+              {
+                loc: [24, 25],
+              },
+              {
+                loc: [26, 31],
+              },
+            ]}
+          />
+
+          <Slide transition={['slide']} notes="- webpack uses UglifyJs by def, with ES2015">
+
+            <Heading size={6} lineHeight={1}>
+              Rollup & babel-minify & es2015
+            </Heading>
+
+            <Heading size={6} lineHeight={1}>
+              60 kB
+            </Heading>
+
+          </Slide>
+
+          <Slide transition={['slide']} notes="- webpack uses UglifyJs by def, with ES2015">
+
+            <Heading size={6} lineHeight={1}>
+              <Code>babel-generator</Code>
+            </Heading>
+
+            <p>
+              Turns an AST into code
+            </p>
+
+          </Slide>
+
+          <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require('!raw!../../babel-generator/rollup.config.js')}
+            ranges={[
+              {
+                loc: [23, 26],
+              },
+              {
+                loc: [27, 29],
+              },
+            ]}
+          />
+
+          <Slide transition={['slide']} notes="- In babel 7, missing babel-plugin, not possible?">
+            <Heading size={4} lineHeight={1}>
+              <code>.babelrc.fs</code> → <code>.js</code>
+            </Heading>
+
+
+            <p>
+              <CodePane
+                lang="js"
+                source={require('!raw!../../babelrc.fs/babelrc.fs')}
+              />
+            </p>
+          </Slide>
+
 
           <Slide bgColor={COLOR_JS_YELLOW}>
             <Heading size={1} fit lineHeight={1} textColor="black">
