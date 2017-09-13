@@ -48,8 +48,8 @@ const images = {
   wannaContribute: require('../assets/want-contribute.png'),
   danPresetEnv: require('../assets/dan-preset-env.png'),
   kangaxCompatTable: require('../assets/kangax-compat-table.png'),
-  polyfill: require('../assets/polyfill.png'),
   Babel: require('../assets/babel.svg'),
+  SvenLovesFS: require('../assets/SvenLovesFS.png'),
 };
 
 preloader(images);
@@ -65,7 +65,7 @@ export default class Presentation extends React.Component {
           <Slide bgColor={COLOR_JS_YELLOW}>
 
             <Heading size={1} fit lineHeight={1} textColor="black">
-              Babel is a JavaScript compiler
+              Babel is a <strike>JavaScript</strike> <small>(F#)</small> compiler
             </Heading>
 
           </Slide>
@@ -86,6 +86,14 @@ export default class Presentation extends React.Component {
 
               <Image src={images.Babel.replace('/', '')} />
             </div>
+          </Slide>
+
+          <Slide transition={['slide']} notes="FS looks really amazing">
+            <Heading size={4} lineHeight={1} textColor="black">
+              ❤ FP
+            </Heading>
+
+            <Image src={images.SvenLovesFS.replace('/', '')} />
           </Slide>
 
           <Slide bgColor={COLOR_JS_YELLOW}>
@@ -156,6 +164,120 @@ export default class Presentation extends React.Component {
             <Image src={images.fableDiagram.replace('/', '')} />
           </Slide>
 
+          <Slide transition={['slide']} notes="from my perspective">
+            <Heading size={4} lineHeight={1}>
+              <BlockQuote>
+                <Quote textColor="black">[…] you can easily take advantage of current JS development tools […]</Quote>
+                <Cite>Fable</Cite>
+              </BlockQuote>
+            </Heading>
+          </Slide>
+
+          <Slide transition={['slide']} notes="true statement">
+            <Heading size={4} lineHeight={1}>
+              <BlockQuote>
+                <Quote textColor="black">JavaScript you can be proud of!</Quote>
+                <Cite>Fable</Cite>
+              </BlockQuote>
+            </Heading>
+          </Slide>
+
+          <Slide transition={['slide']}>
+            <Heading size={4} lineHeight={1}>
+              Functions
+            </Heading>
+
+            <p>
+              <CodePane
+                lang="fsharp"
+                source={require('!raw!../assets/code/square.fs')}
+              />
+            </p>
+
+            <p>
+              ⬇
+            </p>
+
+            <p>
+              <CodePane
+                lang="js"
+                source={require('!raw!../assets/code/square.js')}
+              />
+            </p>
+          </Slide>
+
+          <Slide transition={['slide']} notes="Different languagues, currying">
+            <Heading size={4} lineHeight={1}>
+              Currying
+            </Heading>
+
+            <p>
+              <CodePane
+                lang="fsharp"
+                source={require('!raw!../assets/code/add2times3.fs')}
+              />
+            </p>
+
+            <p>
+              ⬇
+            </p>
+
+            <p>
+              <CodePane
+                lang="js"
+                source={require('!raw!../assets/code/add2times3.js')}
+              />
+            </p>
+          </Slide>
+
+          <Slide transition={['slide']} notes="Different languagues, all-is-expression in fs">
+            <Heading size={4} lineHeight={1}>
+              Return statement
+            </Heading>
+
+            <p>
+              <CodePane
+                lang="fsharp"
+                source={require('!raw!../assets/code/x.fs')}
+              />
+            </p>
+
+            <p>
+              ⬇
+            </p>
+
+            <p>
+              <CodePane
+                lang="js"
+                source={require('!raw!../assets/code/x.js')}
+              />
+            </p>
+          </Slide>
+
+          <Slide transition={['slide']}>
+            <Heading size={4} lineHeight={1}>
+              Pattern matching
+            </Heading>
+
+            <p>
+              <CodePane
+                lang="fsharp"
+                source={require('!raw!../assets/code/booleanProxy.fs')}
+              />
+            </p>
+
+            <p>
+              ⬇
+            </p>
+
+            <p>
+              <CodePane
+                lang="js"
+                source={require('!raw!../assets/code/booleanProxy.js')}
+              />
+            </p>
+          </Slide>
+
           <Slide transition={['slide']}>
             <Image src={images.todosSample.replace('/', '')} />
           </Slide>
@@ -186,14 +308,25 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={['slide']}>
-            <Heading size={4} lineHeight={1}>
-              Polyfill <small>(a browser fallback)</small>
-            </Heading>
-
-            <p>
-              <Image src={images.polyfill.replace('/', '')} style={{ height: 'auto', width: '100%' }} />
-            </p>
+            Polyfill (a browser fallback)
           </Slide>
+
+          <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require('!raw!../assets/code/polyfill.js')}
+            ranges={[
+              {
+                loc: line(1),
+              },
+              {
+                loc: line(5),
+              },
+              {
+                loc: line(7),
+              },
+            ]}
+          />
 
           <Slide transition={['slide']}>
             <Heading size={4} lineHeight={1}>
@@ -362,11 +495,20 @@ export default class Presentation extends React.Component {
             ]}
           />
 
-          <Slide transition={['slide']} notes="- In babel 7, missing babel-plugin, not possible?">
+          <Slide transition={['slide']} notes="Fable already emits ESM">
             <Heading size={4} lineHeight={1}>
-              <code>.babelrc.fs</code> → <code>.js</code>
+              <Code>ESM</Code> ready <small>(<Code>export</Code>/<Code>import</Code> syntax)</small>
             </Heading>
 
+            <p>Node's module system</p>
+
+            <p>Soon in browsers</p>
+          </Slide>
+
+          <Slide transition={['slide']} notes="- In babel 7, missing babel-plugin, not possible?">
+            <Heading size={4} lineHeight={1}>
+              <Code>.babelrc.fs</Code> → <Code>.js</Code>
+            </Heading>
 
             <p>
               <CodePane
@@ -376,10 +518,22 @@ export default class Presentation extends React.Component {
             </p>
           </Slide>
 
+          <Slide transition={['slide']}>
+            <Heading size={4} lineHeight={1}>
+              docker run <Code>xtuc/fable</Code>
+            </Heading>
+
+            <List>
+              <ListItem>mono</ListItem>
+              <ListItem>fsharp</ListItem>
+              <ListItem>Yarn</ListItem>
+              <ListItem>fable-compiler</ListItem>
+            </List>
+          </Slide>
 
           <Slide bgColor={COLOR_JS_YELLOW}>
             <Heading size={1} fit lineHeight={1} textColor="black">
-              Want to crontribute?
+              Want to contribute?
             </Heading>
 
             <p>
