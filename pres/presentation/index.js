@@ -42,13 +42,15 @@ function line(nbr) {
 }
 
 const images = {
+  envDiagram: require('../assets/env-dia.png'),
   todosSample: require('../assets/todos-sample.png'),
   Sven: require('../assets/Sven.jpg'),
-  fableDiagram: require('../assets/fable-diagram.png'),
+  fableDiagram: require('../assets/fable-dia.png'),
   wannaContribute: require('../assets/want-contribute.png'),
   danPresetEnv: require('../assets/dan-preset-env.png'),
   kangaxCompatTable: require('../assets/kangax-compat-table.png'),
-  Babel: require('../assets/babel.svg'),
+  Babel: require('../assets/babel-logo.svg'),
+  BabelDiagram: require('../assets/babel-dia.png'),
   SvenLovesFS: require('../assets/SvenLovesFS.png'),
 };
 
@@ -108,10 +110,10 @@ export default class Presentation extends React.Component {
             </Heading>
 
             <List>
-              <ListItem>Over 350 contributors</ListItem>
-              <ListItem>Over 21k stars</ListItem>
-              <ListItem>Almost 10M downloads per month</ListItem>
-              <ListItem>Almost 2k Babel plugins on npmjs</ListItem>
+              <ListItem>≈ 400 contributors</ListItem>
+              <ListItem>> 22k stars</ListItem>
+              <ListItem>≈ 10M downloads per month</ListItem>
+              <ListItem>≈ 2k Babel plugins on npmjs</ListItem>
             </List>
           </Slide>
 
@@ -120,7 +122,9 @@ export default class Presentation extends React.Component {
               Next generation JavaScript, today
             </Heading>
 
-            Diagram here
+            <p>
+              <Image src={images.BabelDiagram.replace('/', '')} />
+            </p>
           </Slide>
 
           <Slide bgColor={COLOR_JS_YELLOW}>
@@ -161,7 +165,13 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={['slide']}>
-            <Image src={images.fableDiagram.replace('/', '')} />
+            <Heading size={4} lineHeight={1} textColor="black">
+              Fable: F# |> BABEL
+            </Heading>
+
+            <p>
+              <Image src={images.fableDiagram.replace('/', '')} />
+            </p>
           </Slide>
 
           <Slide transition={['slide']} notes="from my perspective">
@@ -294,6 +304,31 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide transition={['slide']}>
+            Polyfill (a browser fallback)
+          </Slide>
+
+          <Slide transition={['slide']}>
+            <Heading size={4} lineHeight={1}>
+              Spread syntax
+            </Heading>
+
+            <p>
+              <CodePane
+                lang="js"
+                source={require('!raw!../assets/code/polyfill-in.js')}
+              />
+            </p>
+
+            <p>
+              <CodePane
+                lang="js"
+                style={{overflow: 'hidden'}}
+                source={require('!raw!../assets/code/polyfill-out.js')}
+              />
+            </p>
+          </Slide>
+
+          <Slide transition={['slide']}>
             <Heading size={4} lineHeight={1}>
               <Code>babel-preset-env</Code>
             </Heading>
@@ -301,32 +336,22 @@ export default class Presentation extends React.Component {
             <p>
               Autoprefixer for Babel: compile less
             </p>
+
+          </Slide>
+
+          <Slide transition={['slide']}>
+            <Heading size={4} lineHeight={1}>
+              Feature detection
+            </Heading>
+
+            <p>
+              <Image src={images.envDiagram.replace('/', '')} />
+            </p>
           </Slide>
 
           <Slide transition={['slide']}>
             <Image src={images.danPresetEnv.replace('/', '')} />
           </Slide>
-
-          <Slide transition={['slide']}>
-            Polyfill (a browser fallback)
-          </Slide>
-
-          <CodeSlide
-            transition={[]}
-            lang="js"
-            code={require('!raw!../assets/code/polyfill.js')}
-            ranges={[
-              {
-                loc: line(1),
-              },
-              {
-                loc: line(5),
-              },
-              {
-                loc: line(7),
-              },
-            ]}
-          />
 
           <Slide transition={['slide']}>
             <Heading size={4} lineHeight={1}>
@@ -362,10 +387,24 @@ export default class Presentation extends React.Component {
           />
 
           <Slide transition={['slide']}>
-            <CodePane
-              lang="js"
-              source={require('!raw!../assets/code/babelPresetEnvDebugOut')}
+            <Terminal output={[
+              `Using targets:
+• chrome: 30
+• safari: 7`,
+              `
+Using plugins:
+• transform-es2015-arrow-functions
+• transform-es2015-block-scoped-functions
+• transform-es2015-block-scoping
+• transform-es2015-classes
+[…]
+• transform-exponentiation-operator
+• transform-async-to-generator
+• syntax-trailing-function-commas
+`,
+              ]}
             />
+
           </Slide>
 
           <Slide transition={['slide']}>
