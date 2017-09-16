@@ -42,6 +42,8 @@ function line(nbr) {
 }
 
 const images = {
+  incaseofstairsHeader: require('../assets/incaseofstairs-header.png'),
+  classEs6VsBabel: require('../assets/class-es6-vs-babel.png'),
   envDiagram: require('../assets/env-dia.png'),
   todosSample: require('../assets/todos-sample.png'),
   Sven: require('../assets/Sven.jpg'),
@@ -164,13 +166,13 @@ export default class Presentation extends React.Component {
             </List>
           </Slide>
 
-          <Slide transition={['slide']}>
+          <Slide transition={['slide']} notes="Compose F# and Babel?, we'll see in between later">
             <Heading size={4} lineHeight={1} textColor="black">
               Fable: F# |> BABEL
             </Heading>
 
             <p>
-              <Image src={images.fableDiagram.replace('/', '')} />
+              <Image src={images.fableDiagram.replace('/', '')} style={{height: '100%', width: '80%'}}/>
             </p>
           </Slide>
 
@@ -303,11 +305,13 @@ export default class Presentation extends React.Component {
             />
           </Slide>
 
-          <Slide transition={['slide']}>
-            Polyfill (a browser fallback)
+          <Slide transition={['slide']} notes="a browser fallback">
+            <Heading size={4} lineHeight={1}>
+              Polyfill
+            </Heading>
           </Slide>
 
-          <Slide transition={['slide']}>
+          <Slide transition={['slide']} notes="not in IE11">
             <Heading size={4} lineHeight={1}>
               Spread syntax
             </Heading>
@@ -339,9 +343,9 @@ export default class Presentation extends React.Component {
 
           </Slide>
 
-          <Slide transition={['slide']}>
+          <Slide transition={['slide']} notes="Feature detection">
             <Heading size={4} lineHeight={1}>
-              Feature detection
+              Inspects AST
             </Heading>
 
             <p>
@@ -355,7 +359,7 @@ export default class Presentation extends React.Component {
 
           <Slide transition={['slide']}>
             <Heading size={4} lineHeight={1}>
-              Kangax-s compat table
+              Kangax's compat table
             </Heading>
 
             <p>
@@ -416,6 +420,31 @@ Using plugins:
               lang="js"
               source={require('!raw!../assets/code/es2015Compat-after.js')}
             />
+          </Slide>
+
+          <Slide transition={['slide']} notes="not native anymore, can be slower">
+            <Heading size={4} lineHeight={1}>
+              What about perf?
+            </Heading>
+          </Slide>
+
+          <Slide transition={['slide']}>
+            <p>
+              <Image src={images.incaseofstairsHeader.replace('/', '')} style={{}}/>
+              <Image src={images.classEs6VsBabel.replace('/', '')} />
+            </p>
+
+            <p><small>Source: http://incaseofstairs.com/six-speed/</small></p>
+          </Slide>
+
+          <Slide transition={['slide']} notes="Native since node 7.10">
+            <Heading size={4} lineHeight={1}>
+              <Code>async/await</Code> syntax
+            </Heading>
+
+            <p>
+              650% increase in size + regenerator runtime
+            </p>
           </Slide>
 
           <Slide transition={['slide']}>
