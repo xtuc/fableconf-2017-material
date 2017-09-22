@@ -796,6 +796,7 @@ Using plugins:
 
             <List>
               <ListItem><small>- Pictures by Ben Heine (Pencil Vs Camera)</small></ListItem>
+              <ListItem>Material here: https://github.com/xtuc/fableconf-2017-material</ListItem>
             </List>
           </Slide>
 
